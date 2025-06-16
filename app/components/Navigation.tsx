@@ -34,6 +34,9 @@ export default function Navigation() {
               </Link>
             </div>
           </div>
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+            <span className="text-white text-lg font-semibold">Shortcut Gifts</span>
+          </div>
         </div>
       </div>
     </nav>
