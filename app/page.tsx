@@ -97,7 +97,7 @@ export default function HomePage() {
       </div>
 
       <footer className="mt-12 text-center text-gray-500 text-sm">
-        This is a free tool that recommends gift ideas. We may earn a small commission from purchases through Amazon Affiliate links. No tracking.
+        This is a free tool that recommends gift ideas. We may earn a small commission from purchases through Amazon Affiliate links.
       </footer>
     </main>
   );
