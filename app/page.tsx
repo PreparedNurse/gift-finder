@@ -1,103 +1,104 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+import { getGifts, Gift } from '@/lib/getGifts';
+
+export default function HomePage() {
+  const [allGifts, setAllGifts] = useState<Gift[]>([]);
+  const [filteredGifts, setFilteredGifts] = useState<Gift[]>([]);
+  const [category, setCategory] = useState<string>('');
+
+  // Load gifts once
+  useEffect(() => {
+    const fetchData = async () => {
+      const gifts = await getGifts();
+      setAllGifts(gifts);
+
+      // Default to 'Cozy' category if available, otherwise first category
+      const uniqueCategories = [...new Set(gifts.map((g) => g.category))];
+      if (uniqueCategories.includes('Cozy')) {
+        setCategory('Cozy');
+      } else {
+        setCategory(uniqueCategories[0] || '');
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Generate 3 random gifts for selected category
+  const refreshGifts = () => {
+    const categoryGifts = allGifts.filter((gift) => gift.category === category);
+    const shuffled = [...categoryGifts].sort(() => 0.5 - Math.random());
+    setFilteredGifts(shuffled.slice(0, 3));
+  };
+
+  // Refresh gifts whenever category changes
+  useEffect(() => {
+    if (category) refreshGifts();
+  }, [category]);
+
+  const categories = Array.from(new Set(allGifts.map((g) => g.category)));
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-950 p-6">
+      <h1 className="text-3xl font-bold text-center mb-2 text-white">Random Gift Finder</h1>
+      <p className="text-gray-400 text-center mb-6">Get 3 fun, random generated ideas every time you click</p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div className="flex justify-center mb-6 gap-4 flex-wrap">
+        <select
+          className="px-4 py-2 rounded border bg-blue-700 text-white"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((cat) => (
+            <option key={cat}>{cat}</option>
+          ))}
+        </select>
+
+        <button
+          onClick={refreshGifts}
+          className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
+        >
+          See More
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
+        {filteredGifts.map((gift, index) => (
+          <div 
+            key={gift.id} 
+            className="bg-gray-800 shadow p-4 rounded-lg max-w-xs w-full text-white transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 animate-fade-in-up"
+            style={{ 
+              animationName: 'fadeInUp',
+              animationDuration: '0.5s',
+              animationTimingFunction: 'ease-out',
+              animationFillMode: 'forwards',
+              animationDelay: `${index * 150}ms`,
+              opacity: 0
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            <img
+              src={gift.image}
+              alt={gift.name}
+              className="w-full h-48 object-cover rounded mb-4"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+            <h2 className="text-lg font-semibold">{gift.name}</h2>
+            <p className="text-gray-300 mb-2">{gift.price}</p>
+            <a
+              href={gift.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors duration-300"
+            >
+              Buy Now →
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <footer className="mt-12 text-center text-gray-500 text-sm">
+        This is a free tool that recommends gift ideas. We may earn a small commission from purchases through links. No tracking.
       </footer>
-    </div>
+    </main>
   );
 }
