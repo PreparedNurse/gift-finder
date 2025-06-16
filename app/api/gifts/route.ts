@@ -1,6 +1,17 @@
 // app/api/gifts/route.ts
 import { NextResponse } from 'next/server';
 
+type AirtableRecord = {
+  id: string;
+  fields: {
+    Name?: string;
+    Image?: string;
+    Link?: string;
+    Price?: string;
+    Category?: string;
+  };
+};
+
 export async function GET() {
   const apiKey = process.env.AIRTABLE_API_KEY;
   const baseId = process.env.AIRTABLE_BASE_ID;
@@ -15,7 +26,7 @@ export async function GET() {
 
   const data = await res.json();
 
-  const formatted = data.records.map((record: any) => ({
+  const formatted = data.records.map((record: AirtableRecord) => ({
     id: record.id,
     name: record.fields.Name || '',
     image: record.fields.Image || '',
