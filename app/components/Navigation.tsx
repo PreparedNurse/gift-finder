@@ -7,7 +7,7 @@ export default function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-black/50 backdrop-blur-sm border-b border-gray-800">
+    <nav className="bg-[#e6d5c3] backdrop-blur-sm border-b border-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -16,8 +16,8 @@ export default function Navigation() {
                 href="/"
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   pathname === '/'
-                    ? 'bg-blue-700 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                    ? 'bg-gray-200 text-[#4b3621]'
+                    : 'text-[#4b3621] hover:bg-gray-200 hover:text-[#4b3621]'
                 }`}
               >
                 Gift Finder
@@ -26,8 +26,8 @@ export default function Navigation() {
                 href="/about"
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   pathname === '/about'
-                    ? 'bg-blue-700 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                    ? 'bg-gray-200 text-[#4b3621]'
+                    : 'text-[#4b3621] hover:bg-gray-200 hover:text-[#4b3621]'
                 }`}
               >
                 About
@@ -35,7 +35,7 @@ export default function Navigation() {
             </div>
           </div>
           <div className="absolute left-1/2 transform -translate-x-1/2">
-            <span className="text-white text-lg font-semibold">Shortcut Gifts</span>
+            <span className="text-[#4b3621] text-lg font-semibold">Shortcut Gifts</span>
           </div>
         </div>
       </div>
