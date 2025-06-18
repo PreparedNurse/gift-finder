@@ -40,13 +40,13 @@ export default function HomePage() {
   const categories = Array.from(new Set(allGifts.map((g) => g.category)));
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-200 via-gray-100 to-white p-6">
+    <main className="min-h-screen bg-gradient-to-br from-gray-300 via-gray-100 to-white p-6">
       <h1 className="text-3xl font-bold text-center mb-2 text-[#4b3621]">Random Gift Finder</h1>
       <p className="text-[#4b3621] text-center mb-6">Select a category and get 3 random generated ideas every time you click</p>
 
       <div className="flex justify-center mb-6 gap-4 flex-wrap">
         <select
-          className="px-4 py-2 rounded border bg-gray-200 text-[#4b3621]"
+          className="px-4 py-2 rounded border bg-[#e6d5c3] text-[#4b3621] hover:bg-[#d4c2b0] transition-colors duration-300"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -57,7 +57,7 @@ export default function HomePage() {
 
         <button
           onClick={refreshGifts}
-          className="bg-gray-200 text-[#4b3621] px-4 py-2 rounded hover:bg-gray-300 transition"
+          className="bg-[#e6d5c3] text-[#4b3621] px-4 py-2 rounded hover:bg-[#d4c2b0] transition-colors duration-300"
         >
           See More
         </button>
