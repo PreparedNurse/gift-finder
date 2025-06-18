@@ -14,10 +14,10 @@ export default function HomePage() {
       const gifts = await getGifts();
       setAllGifts(gifts);
 
-      // Default to 'Cozy' category if available, otherwise first category
+      // Default to 'Gifts for Her' category if available, otherwise first category
       const uniqueCategories = [...new Set(gifts.map((g) => g.category))];
-      if (uniqueCategories.includes('Cozy')) {
-        setCategory('Cozy');
+      if (uniqueCategories.includes('Gifts for Her')) {
+        setCategory('Gifts for Her');
       } else {
         setCategory(uniqueCategories[0] || '');
       }
