@@ -42,7 +42,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-300 via-gray-100 to-white p-6">
       <h1 className="text-3xl font-bold text-center mb-2 text-[#4b3621]">Random Gift Finder</h1>
-      <p className="text-[#4b3621] text-center mb-6">Select a category and get 3 random generated ideas every time you click. Perfect for last-minute shoppers and busy people who don't want to think.</p>
+      <p className="text-[#4b3621] text-center mb-6">Choose a category and get 3 random gift ideas with every click. Perfect for last-minute shoppers and busy people who don't want to overthink it.</p>
 
       <div className="flex justify-center mb-6 gap-4 flex-wrap">
         <select
