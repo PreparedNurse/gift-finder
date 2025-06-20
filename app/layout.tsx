@@ -30,8 +30,9 @@ export default function RootLayout({
       >
         <Navigation />
         {children}
-        {/* Google Ads Tag */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17213589191"></script>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17213589191">
+        </script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
