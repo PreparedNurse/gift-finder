@@ -80,7 +80,7 @@ export default function HomePage() {
             <img
               src={gift.image}
               alt={gift.name}
-              className="w-full h-48 object-cover rounded mb-4"
+              className="w-full h-48 object-contain rounded mb-4"
             />
             <h2 className="text-lg font-semibold">{gift.name}</h2>
             <p className="text-gray-600 mb-2">{gift.price}</p>
